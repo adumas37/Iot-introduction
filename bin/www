@@ -25,6 +25,12 @@ const io = require('socket.io')(server);
 const { handleIo } = require('../sockets/measures')
 io.on('connection', handleIo(io));
 
+const SerialPort = require('serialport');
+const Readline = require('@serialport/parser-readline');
+const serialPort = new SerialPort('/dev/ttyACM0');
+const { handleSerialPort } = require('../serial/measures')
+const parser = serialPort.pipe(new Readline({ delimiter: '\r\n' }));
+parser.on('data', handleSerialPort);
 
 /**
  * Listen on provided port, on all network interfaces.
