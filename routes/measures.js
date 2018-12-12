@@ -62,13 +62,9 @@ function addMeasureInFile(measure) {
 }
 
 function getMeasure(id) {
-  getMeasuresFromFile().forEach(measure => {
-    if (measure.id == id) {
-      return measure;
-    }
+  return getMeasuresFromFile().find(measure => {
+    return measure.id == id;
   });
-
-  return null;
 }
 
 function patchMeasure(id, measureData) {
